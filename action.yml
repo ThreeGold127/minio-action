@@ -1,0 +1,30 @@
+name: "Minio Client Github Action"
+description: "Action for interfacing with the mc CLI"
+author: "Joel Howse"
+inputs:
+  endpoint:
+    description: "Endpoint of the S3 server"
+    required: true
+  access_key:
+    description: "Access key credential"
+    required: false
+  secret_key:
+    description: "Secret key credential"
+    required: false
+  args:
+    description: |-
+      Arguments to pass to the mc CLI
+      See https://docs.min.io/docs/minio-client-complete-guide.html
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  env:
+    MINIO_ENDPOINT: ${{ inputs.endpoint }}
+    MINIO_ACCESS_KEY: ${{ inputs.access_key }}
+    MINIO_SECRET_KEY: ${{ inputs.secret_key }}
+  args:
+    - ${{ inputs.args }}
+branding:
+  icon: "upload-cloud"
+  color: "blue"
