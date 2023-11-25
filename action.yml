@@ -7,14 +7,15 @@ inputs:
     required: true
   access_key:
     description: "Access key credential"
-    required: false
+    required: true
   secret_key:
     description: "Secret key credential"
-    required: false
-  args:
-    description: |-
-      Arguments to pass to the mc CLI
-      See https://docs.min.io/docs/minio-client-complete-guide.html
+    required: true
+  bucket:
+    description: "Bucket of the S3 server"
+    required: true
+  source_file:
+    description: "Source file"
     required: true
 runs:
   using: "docker"
@@ -23,8 +24,8 @@ runs:
     MINIO_ENDPOINT: ${{ inputs.endpoint }}
     MINIO_ACCESS_KEY: ${{ inputs.access_key }}
     MINIO_SECRET_KEY: ${{ inputs.secret_key }}
-  args:
-    - ${{ inputs.args }}
+    MINIO_BUCKET: ${{ inputs.bucket }}
+    MINIO_SOURCE_FILE: ${{ inputs.source_file }}
 branding:
   icon: "upload-cloud"
   color: "blue"
